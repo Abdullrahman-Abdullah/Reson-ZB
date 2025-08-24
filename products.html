@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منتجاتنا - Zubaida Beauty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* التكيف مع اللغة العربية */
+        body[dir="rtl"] {
+            text-align: right;
+        }
+        
+        /* الهيدر */
+        header {
+            background: linear-gradient(135deg, #6A5ACD 0%, #FFB6C1 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-left: 10px;
+            color: #4CAF50;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* محتوى صفحة المنتجات */
+        .products-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #6A5ACD;
+            text-decoration: none;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: #6A5ACD;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #FFB6C1, #6A5ACD);
+            border-radius: 2px;
+        }
+        
+        .page-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .products-filter {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .filter-title {
+            font-weight: bold;
+            color: #6A5ACD;
+            margin-left: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #6A5ACD;
+            color: white;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-right: auto;
+        }
+        
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+            width: 250px;
+        }
+        
+        .search-btn {
+            padding: 0.5rem 1rem;
+            background: #6A5ACD;
+            color: white;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+        }
+        
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #4CAF50;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+        
+        .product-badge.sale {
+            background: #ff4757;
+        }
+        
+        .product-badge.new {
+            background: #6A5ACD;
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(45deg, #FFB6C1, #6A5ACD);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-card:hover .product-image::after {
+            opacity: 1;
+        }
+        
+        .product-actions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+        
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: #6A5ACD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: #6A5ACD;
+            color: white;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .product-rating {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .current-price {
+            font-weight: bold;
+            color: #6A5ACD;
+            font-size: 1.2rem;
+        }
+        
+        .original-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+        
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: #3e8e41;
+            transform: translateY(-2px);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn.active, .pagination-btn:hover {
+            background: #6A5ACD;
+            color: white;
+            border-color: #6A5ACD;
+        }
+        
+        .categories-section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #6A5ACD;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 40%;
+            height: 3px;
+            background: linear-gradient(to right, #FFB6C1, #6A5ACD);
+            border-radius: 2px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFB6C1, #6A5ACD);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .category-name {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-count {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* الفوتر */
+        footer {
+            background: linear-gradient(rgba(106, 90, 205, 0.95), rgba(76, 175, 80, 0.95)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,30 Q30,20 40,30 T60,30 T80,30 T90,20" stroke="%23ffffff20" fill="none" stroke-width="2"/><circle cx="30" cy="50" r="5" fill="%23ffffff20"/><circle cx="50" cy="50" r="5" fill="%23ffffff20"/><circle cx="70" cy="50" r="5" fill="%23ffffff20"/><path d="M20,70 Q30,60 40,70 T60,70 T80,70 T90,60" stroke="%23ffffff20" fill="none" stroke-width="2"/></svg>');
+            color: white;
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #FFB6C1;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background-color: #FFB6C1;
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 0.8rem;
+            color: #f0f0f0;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #FFB6C1;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #FFB6C1;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f0f0f0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cosmetic-icon {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .icon-1 {
+            top: 20%;
+            left: 10%;
+            font-size: 5rem;
+            transform: rotate(25deg);
+        }
+        
+        .icon-2 {
+            top: 40%;
+            right: 15%;
+            font-size: 4rem;
+            transform: rotate(-15deg);
+        }
+        
+        .icon-3 {
+            bottom: 20%;
+            left: 20%;
+            font-size: 6rem;
+            transform: rotate(10deg);
+        }
+        
+        /* responsive design */
+        @media (max-width: 968px) {
+            .products-filter {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                margin-right: 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            header{
+                position:relative;
+                width:100svw;
+            }
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section h3::after {
+                right: 50%;
+                transform: translateX(50%);
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <a href="index.html" style="color: white; text-decoration: none;">Zubaida Beauty</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="products.html" class="active">المنتجات</a></li>
+                    <li><a href="about.html">عن الشركة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li class="cart-icon">
+                        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                        <span class="cart-count">3</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوى صفحة المنتجات -->
+    <section class="products-section">
+        <div class="breadcrumb">
+            <a href="index.html">الرئيسية</a> / 
+            <span>المنتجات</span>
+        </div>
+        
+        <h1 class="page-title">منتجاتنا</h1>
+        
+        <p class="page-description">
+            استكشف مجموعة منتجاتنا الطبيعية الفريدة من العناية بالبشرة والشعر والصابون الطبيعي. 
+            جميع منتجاتنا مصنوعة يدوياً من أفضل المكونات الطبيعية الخالية من المواد الكيميائية الضارة.
+        </p>
+        
+        <div class="products-filter">
+            <span class="filter-title">تصفية حسب:</span>
+            
+            <div class="filter-group">
+                <button class="filter-btn active">الكل</button>
+                <button class="filter-btn">صابون طبيعي</button>
+                <button class="filter-btn">العناية بالبشرة</button>
+                <button class="filter-btn">العناية بالشعر</button>
+                <button class="filter-btn">الأكثر مبيعاً</button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="ابحث عن منتج...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <select class="sort-select">
+                <option>ترتيب حسب: الأحدث</option>
+                <option>ترتيب حسب: السعر من الأقل للأعلى</option>
+                <option>ترتيب حسب: السعر من الأعلى للأقل</option>
+                <option>ترتيب حسب: الأكثر تقييماً</option>
+            </select>
+        </div>
+        
+        <div class="products-grid">
+            <!-- منتج 1 -->
+            <div class="product-card">
+                <span class="product-badge new">جديد</span>
+                <div class="product-image">
+                    <i class="fas fa-pump-soap"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">صابون طبيعي</div>
+                    <h3 class="product-name">صابون الزيتون الطبيعي</h3>
+                    <p class="product-description">صابون طبيعي مصنوع من زيت الزيتون البكر لترطيب عميق ونعومة فائقة</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">25 ر.س</span>
+                        <span class="original-price">30 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 2 -->
+            <div class="product-card">
+                <span class="product-badge sale">خصم 15%</span>
+                <div class="product-image">
+                    <i class="fas fa-air-freshener"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">العناية بالشعر</div>
+                    <h3 class="product-name">زيت اللافندر للشعر</h3>
+                    <p class="product-description">زيت طبيعي يعزز نمو الشعر ويقويه ويضيف لمعاناً صحياً</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">45 ر.س</span>
+                        <span class="original-price">55 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-hand-holding-water"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">العناية بالبشرة</div>
+                    <h3 class="product-name">كريم البابونج للبشرة</h3>
+                    <p class="product-description">كريم مهدئ للبشرة الحساسة، يقلل الاحمرار ويرطب بعمق</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">40 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-mortar-pestle"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">مقشرات طبيعية</div>
+                    <h3 class="product-name">مقشر القهوة الطبيعي</h3>
+                    <p class="product-description">مقشر طبيعي من قشور القهوة لتجديد خلايا البشرة وإزالة الخلايا الميتة</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">35 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 5 -->
+            <div class="product-card">
+                <span class="product-badge new">جديد</span>
+                <div class="product-image">
+                    <i class="fas fa-soap"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">صابون طبيعي</div>
+                    <h3 class="product-name">صابون العسل والشوفان</h3>
+                    <p class="product-description">صابون مغذي بمكونات طبيعية للعناية بالبشرة الجافة والحساسة</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">28 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-spa"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">العناية بالشعر</div>
+                    <h3 class="product-name">شامبو الأرغان المغربي</h3>
+                    <p class="product-description">شامبو طبيعي يعزز لمعان الشعر ويقويه من الجذور إلى الأطراف</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">55 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 7 -->
+            <div class="product-card">
+                <span class="product-badge sale">خصم 10%</span>
+                <div class="product-image">
+                    <i class="fas fa-pump-soap"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">صابون طبيعي</div>
+                    <h3 class="product-name">صابون النعناع المنعش</h3>
+                    <p class="product-description">صابون منعش برائحة النعناع يمنحك انتعاشاً طوال اليوم</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">22 ر.س</span>
+                        <span class="original-price">25 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+            
+            <!-- منتج 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-hand-holding-water"></i>
+                    <div class="product-actions">
+                        <div class="action-btn"><i class="fas fa-eye"></i></div>
+                        <div class="action-btn"><i class="fas fa-heart"></i></div>
+                        <div class="action-btn"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">العناية بالبشرة</div>
+                    <h3 class="product-name">مرطب الورد الجوري</h3>
+                    <p class="product-description">مرطب يومي برائحة الورد الجوري يمنح بشرتك النعومة والترطيب</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">48 ر.س</span>
+                    </div>
+                    <button class="add-to-cart-btn">أضف إلى السلة</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        
+        <div class="categories-section">
+            <h2 class="section-title">فئات المنتجات</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pump-soap"></i>
+                    </div>
+                    <h3 class="category-name">صابون طبيعي</h3>
+                    <p class="category-count">12 منتج</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-hand-holding-water"></i>
+                    </div>
+                    <h3 class="category-name">العناية بالبشرة</h3>
+                    <p class="category-count">8 منتجات</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-air-freshener"></i>
+                    </div>
+                    <h3 class="category-name">العناية بالشعر</h3>
+                    <p class="category-count">10 منتجات</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <h3 class="category-name">مقشرات طبيعية</h3>
+                    <p class="category-count">5 منتجات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="contact">
+        <i class="cosmetic-icon icon-1 fas fa-paint-brush"></i>
+        <i class="cosmetic-icon icon-2 fas fa-spa"></i>
+        <i class="cosmetic-icon icon-3 fas fa-palette"></i>
+        
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Zubaida Beauty</h3>
+                <p>متخصصون في صناعة منتجات التجميل الطبيعية للشعر والبشرة والصابون الطبيعي بجودة فائقة.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-snapchat"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                                        <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="products.html">المنتجات</a></li>
+                    <li><a href="about.html">عن الشركة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>معلومات الاتصال</h3>
+                <p><i class="fas fa-map-marker-alt"></i>ريف دمشق - سوريا</p>
+                <p><i class="fas fa-phone"></i> +963 981 082 693</p>
+                <p><i class="fas fa-envelope"></i> info@zubaida-beauty.com</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Zubaida Beauty. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // فلترة المنتجات
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // إزالة النشط من جميع الأزرار
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // إضافة النشط للزر المختار
+                    this.classList.add('active');
+                    
+                    const filterValue = this.textContent.trim();
+                    
+                    // تصفية المنتجات
+                    productCards.forEach(card => {
+                        if (filterValue === 'الكل') {
+                            card.style.display = 'block';
+                        } else {
+                            const category = card.querySelector('.product-category').textContent.trim();
+                            if (category === filterValue) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // البحث عن المنتجات
+            const searchInput = document.querySelector('.search-input');
+            const searchButton = document.querySelector('.search-btn');
+            
+            searchButton.addEventListener('click', function() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                
+                productCards.forEach(card => {
+                    const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                    const productDesc = card.querySelector('.product-description').textContent.toLowerCase();
+                    
+                    if (productName.includes(searchTerm) || productDesc.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // إضافة إلى السلة
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartCount = document.querySelector('.cart-count');
+            let count = parseInt(cartCount.textContent);
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    count++;
+                    cartCount.textContent = count;
+                    
+                    const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    
+                    // تأثير إشعار
+                    const notification = document.createElement('div');
+                    notification.style.position = 'fixed';
+                    notification.style.top = '20px';
+                    notification.style.right = '20px';
+                    notification.style.background = '#4CAF50';
+                    notification.style.color = 'white';
+                    notification.style.padding = '10px 20px';
+                    notification.style.borderRadius = '5px';
+                    notification.style.zIndex = '1000';
+                    notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+                    notification.textContent = `تم إضافة ${productName} إلى السلة`;
+                    
+                    document.body.appendChild(notification);
+                    
+                    // إخفاء الإشعار بعد 3 ثوان
+                    setTimeout(() => {
+                        notification.style.opacity = '0';
+                        notification.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 500);
+                    }, 3000);
+                });
+            });
+            
+            // تأثير التصغير عند التمرير
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.padding = '0.5rem 1rem';
+                } else {
+                    header.style.padding = '1rem';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
