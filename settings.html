@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - Zubaida Beauty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* التكيف مع اللغة العربية */
+        body[dir="rtl"] {
+            text-align: right;
+        }
+        
+        /* الهيدر */
+        header {
+            background: linear-gradient(135deg, #6A5ACD 0%, #FFB6C1 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-left: 10px;
+            color: #4CAF50;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* محتوى صفحة الإعدادات */
+        .settings-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+        
+        .breadcrumb a {
+            color: #6A5ACD;
+            text-decoration: none;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: #6A5ACD;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            grid-column: 1 / -1;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #FFB6C1, #6A5ACD);
+            border-radius: 2px;
+        }
+        
+        /* القائمة الجانبية */
+        .settings-sidebar {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .profile-card {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FFB6C1, #6A5ACD);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .change-photo {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.3rem;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .profile-name {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .settings-menu {
+            list-style: none;
+        }
+        
+        .settings-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .settings-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: #555;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .settings-menu a:hover, .settings-menu a.active {
+            background: linear-gradient(45deg, #FFB6C1, #6A5ACD);
+            color: white;
+        }
+        
+        .settings-menu i {
+            margin-left: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* محتوى الإعدادات */
+        .settings-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-title {
+            font-size: 1.5rem;
+            color: #6A5ACD;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #6A5ACD;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #3e8e41;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* إعدادات المظهر */
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .theme-option {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-option:hover, .theme-option.active {
+            border-color: #6A5ACD;
+        }
+        
+        .theme-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme-light {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        }
+        
+        .theme-dark {
+            background: linear-gradient(135deg, #333333 0%, #555555 100%);
+        }
+        
+        .theme-pink {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+        }
+        
+        .theme-purple {
+            background: linear-gradient(135deg, #6A5ACD 0%, #9370DB 100%);
+        }
+        
+        /* طرق الدفع */
+        .payment-methods {
+            margin-bottom: 2rem;
+        }
+        
+        .payment-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-card:hover {
+            border-color: #6A5ACD;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-icon {
+            width: 50px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            color: #6A5ACD;
+        }
+        
+        .payment-info {
+            flex: 1;
+        }
+        
+        .payment-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+        
+        .payment-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .payment-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .payment-btn {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit {
+            background: #6A5ACD;
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+        }
+        
+        /* الأمان */
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .security-info h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .security-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .security-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .status-inactive {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* الطلبات الأخيرة */
+        .order-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .order-item:hover {
+            border-color: #6A5ACD;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .order-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #FFB6C1, #6A5ACD);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .order-info {
+            padding: 0.5rem 0;
+        }
+        
+        .order-name {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .order-details {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .order-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-delivered {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .status-processing {
+            background: rgba(255, 165, 0, 0.2);
+            color: #FFA500;
+        }
+        
+        .status-shipped {
+            background: rgba(30, 144, 255, 0.2);
+            color: #1E90FF;
+        }
+        
+        .order-price {
+            font-weight: bold;
+            color: #6A5ACD;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+        
+        /* الإشعارات */
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            color: #6A5ACD;
+            font-size: 1.2rem;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .notification-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .notification-time {
+            color: #888;
+            font-size: 0.8rem;
+        }
+        
+        /* الفوتر */
+        footer {
+            background: linear-gradient(rgba(106, 90, 205, 0.95), rgba(76, 175, 80, 0.95)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,30 Q30,20 40,30 T60,30 T80,30 T90,20" stroke="%23ffffff20" fill="none" stroke-width="2"/><circle cx="30" cy="50" r="5" fill="%23ffffff20"/><circle cx="50" cy="50" r="5" fill="%23ffffff20"/><circle cx="70" cy="50" r="5" fill="%23ffffff20"/><path d="M20,70 Q30,60 40,70 T60,70 T80,70 T90,60" stroke="%23ffffff20" fill="none" stroke-width="2"/></svg>');
+            color: white;
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #FFB6C1;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background-color: #FFB6C1;
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 0.8rem;
+            color: #f0f0f0;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #FFB6C1;
+        }
+        
+        .footer-social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social-links a:hover {
+            background: #FFB6C1;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f0f0f0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cosmetic-icon {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .icon-1 {
+            top: 20%;
+            left: 10%;
+            font-size: 5rem;
+            transform: rotate(25deg);
+        }
+        
+        .icon-2 {
+            top: 40%;
+            right: 15%;
+            font-size: 4rem;
+            transform: rotate(-15deg);
+        }
+        
+        .icon-3 {
+            bottom: 20%;
+            left: 20%;
+            font-size: 6rem;
+            transform: rotate(10deg);
+        }
+        
+        /* responsive design */
+        @media (max-width: 968px) {
+            .settings-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            header{
+              position: relative;
+              width:100svw;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .order-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .order-price {
+                text-align: center;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section h3::after {
+                right: 50%;
+                transform: translateX(50%);
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <a href="index.html" style="color: white; text-decoration: none;">Zubaida Beauty</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="products.html">المنتجات</a></li>
+                    <li><a href="about.html">عن الشركة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li class="cart-icon">
+                        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                        <span class="cart-count">3</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوى صفحة الإعدادات -->
+    <section class="settings-section">
+        <div class="breadcrumb">
+            <a href="index.html">الرئيسية</a> / 
+            <span>الإعدادات</span>
+        </div>
+        
+        <h1 class="page-title">الإعدادات والحساب الشخصي</h1>
+        
+        <!-- القائمة الجانبية -->
+        <div class="settings-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <i class="fas fa-user"></i>
+                    <div class="change-photo">تغيير</div>
+                </div>
+                <h2 class="profile-name">سارة أحمد</h2>
+                <p class="profile-email">sara.ahmed@example.com</p>
+            </div>
+            
+            <ul class="settings-menu">
+                <li><a href="#profile" class="active" data-tab="profile"><i class="fas fa-user"></i> الملف الشخصي</a></li>
+                <li><a href="#appearance" data-tab="appearance"><i class="fas fa-paint-brush"></i> المظهر</a></li>
+                <li><a href="#address" data-tab="address"><i class="fas fa-map-marker-alt"></i> عناوين الشحن</a></li>
+                <li><a href="#payment" data-tab="payment"><i class="fas fa-credit-card"></i> طرق الدفع</a></li>
+                <li><a href="#security" data-tab="security"><i class="fas fa-shield-alt"></i> الأمان</a></li>
+                <li><a href="#notifications" data-tab="notifications"><i class="fas fa-bell"></i> الإشعارات</a></li>
+                <li><a href="#orders" data-tab="orders"><i class="fas fa-shopping-bag"></i> طلباتي</a></li>
+                <li><a href="#language" data-tab="language"><i class="fas fa-globe"></i> اللغة</a></li>
+                <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</a></li>
+            </ul>
+        </div>
+        
+        <!-- محتوى الإعدادات -->
+        <div class="settings-content">
+            <!-- الملف الشخصي -->
+            <div id="profile-content" class="tab-content active">
+                <h2 class="tab-title">الملف الشخصي</h2>
+                
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">الاسم الأول</label>
+                            <input type="text" id="firstName" class="form-input" value="سارة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">اسم العائلة</label>
+                            <input type="text" id="lastName" class="form-input" value="أحمد">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="form-input" value="sara.ahmed@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">رقم الهاتف</label>
+                        <input type="tel" id="phone" class="form-input" value="+966 50 123 4567">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate" class="form-label">تاريخ الميلاد</label>
+                        <input type="date" id="birthdate" class="form-input" value="1990-05-15">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">الجنس</label>
+                        <div>
+                            <input type="radio" id="female" name="gender" value="female" checked>
+                            <label for="female">أنثى</label>
+                            
+                            <input type="radio" id="male" name="gender" value="male" style="margin-right: 20px;">
+                            <label for="male">ذكر</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">حفظ التغييرات</button>
+                </form>
+            </div>
+            
+            <!-- المظهر -->
+            <div id="appearance-content" class="tab-content">
+                <h2 class="tab-title">إعدادات المظهر</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">اختر السمة</label>
+                    <div class="theme-options">
+                        <div class="theme-option active">
+                            <div class="theme-preview theme-light"></div>
+                            <span>فاتح</span>
+                        </div>
+                        
+                        <div class="theme-option">
+                            <div class="theme-preview theme-dark"></div>
+                            <span>داكن</span>
+                        </div>
+                        
+                        <div class="theme-option">
+                            <div class="theme-preview theme-pink"></div>
+                            <span>زهري</span>
+                        </div>
+                        
+                        <div class="theme-option">
+                            <div class="theme-preview theme-purple"></div>
+                            <span>بنفسجي</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">حجم الخط</label>
+                    <select class="form-select">
+                        <option>صغير</option>
+                        <option selected>متوسط</option>
+                        <option>كبير</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">كثافة الرسوميات</label>
+                    <select class="form-select">
+                        <option>منخفضة (أداء أفضل)</option>
+                        <option selected>متوسطة</option>
+                        <option>عالية (جودة أفضل)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">حفظ التغييرات</button>
+            </div>
+            
+            <!-- عناوين الشحن -->
+            <div id="address-content" class="tab-content">
+                <h2 class="tab-title">عناوين الشحن</h2>
+                
+                <div class="form-group">
+                    <label for="defaultAddress" class="form-label">العنوان الافتراضي</label>
+                    <select id="defaultAddress" class="form-select">
+                        <option>منزل - حي العليا، الرياض</option>
+                        <option>عمل - حي السليمانية، الرياض</option>
+                    </select>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: #6A5ACD;">العناوين المخزنة</h3>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">منزل</div>
+                        <div class="payment-details">حي العليا، شارع الملك فهد، الرياض 12211</div>
+                    </div>
+                    <div class="payment-actions">
+                        <button class="payment-btn btn-edit"><i class="fas fa-edit"></i></button>
+                        <button class="payment-btn btn-delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">عمل</div>
+                        <div class="payment-details">حي السليمانية، شارع العروبة، الرياض 12234</div>
+                    </div>
+                    <div class="payment-actions">
+                        <button class="payment-btn btn-edit"><i class="fas fa-edit"></i></button>
+                        <button class="payment-btn btn-delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <button type="button" class="submit-btn" style="margin-top: 1rem;"><i class="fas fa-plus"></i> إضافة عنوان جديد</button>
+            </div>
+            
+            <!-- طرق الدفع -->
+            <div id="payment-content" class="tab-content">
+                <h2 class="tab-title">طرق الدفع</h2>
+                
+                <div class="payment-methods">
+                    <div class="payment-card">
+                        <div class="payment-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">بطاقة Visa</div>
+                            <div class="payment-details">**** **** **** 1234</div>
+                        </div>
+                        <div class="payment-actions">
+                            <button class="payment-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="payment-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">بطاقة MasterCard</div>
+                            <div class="payment-details">**** **** **** 5678</div>
+                        </div>
+                        <div class="payment-actions">
+                            <button class="payment-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="payment-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-icon">
+                            <i class="fab fa-apple-pay"></i>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">Apple Pay</div>
+                            <div class="payment-details">sara.ahmed@example.com</div>
+                        </div>
+                        <div class="payment-actions">
+                            <button class="payment-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="payment-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="submit-btn"><i class="fas fa-plus"></i> إضافة طريقة دفع جديدة</button>
+            </div>
+            
+            <!-- الأمان -->
+            <div id="security-content" class="tab-content">
+                <h2 class="tab-title">إعدادات الأمان</h2>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>كلمة المرور</h3>
+                        <p>آخر تحديث: منذ 3 أشهر</p>
+                    </div>
+                    <span class="security-status status-active">آمن</span>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>المصادقة الثنائية</h3>
+                        <p>طبقة أمان إضافية لحسابك</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>نشاط تسجيل الدخول</h3>
+                        <p>آخر تسجيل دخول: اليوم 10:30 صباحاً</p>
+                    </div>
+                    <span class="security-status status-active">نشط</span>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>الأجهزة المتصلة</h3>
+                        <p>3 أجهزة متصلة بحسابك</p>
+                    </div>
+                    <button class="submit-btn" style="padding: 0.5rem 1rem;">إدارة</button>
+                </div>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label for="currentPassword" class="form-label">كلمة المرور الحالية</label>
+                    <input type="password" id="currentPassword" class="form-input" placeholder="أدخل كلمة المرور الحالية">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newPassword" class="form-label">كلمة المرور الجديدة</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="أدخل كلمة المرور الجديدة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="أكد كلمة المرور الجديدة">
+                </div>
+                
+                <button type="submit" class="submit-btn">تغيير كلمة المرور</button>
+            </div>
+            
+            <!-- الإشعارات -->
+            <div id="notifications-content" class="tab-content">
+                <h2 class="tab-title">إعدادات الإشعارات</h2>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>الإشعارات البريدية</h3>
+                        <p>استلام رسائل بريدية حول العروض والمنتجات الجديدة</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>إشعارات الطلبات</h3>
+                        <p>إشعارات حول حالة الطلبات والشحن</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>إشعارات العروض</h3>
+                        <p>إشعارات حول التخفيضات والعروض الخاصة</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h3>الإشعارات على الجوال</h3>
+                        <p>إشعارات push على هاتفك المحمول</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: #6A5ACD;">الإشعارات الحديثة</h3>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">طلبك قيد التجهيز</div>
+                        <div class="notification-desc">تم تجهيز طلبك رقم #ZB2023110501 وسيتم شحنه قريباً</div>
+                        <div class="notification-time">منذ ساعتين</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">عرض خاص</div>
+                        <div class="notification-desc">خصم 20% على جميع منتجات العناية بالشعر هذا الأسبوع فقط</div>
+                        <div class="notification-time">منذ يومين</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">شحن الطلب</div>
+                        <div class="notification-desc">طلبك رقم #ZB2023110432 في طريق إليه</div>
+                        <div class="notification-time">منذ 4 أيام</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الطلبات -->
+            <div id="orders-content" class="tab-content">
+                <h2 class="tab-title">طلباتي</h2>
+                
+                <div class="order-item">
+                    <div class="order-image">
+                        <i class="fas fa-pump-soap"></i>
+                    </div>
+                    <div class="order-info">
+                        <h3 class="order-name">صابون الزيتون الطبيعي</h3>
+                        <div class="order-details">الكمية: 2 | رقم الطلب: #ZB2023110501</div>
+                        <span class="order-status status-processing">قيد التجهيز</span>
+                    </div>
+                    <div class="order-price">50 ر.س</div>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-image">
+                        <i class="fas fa-air-freshener"></i>
+                    </div>
+                    <div class="order-info">
+                        <h3 class="order-name">زيت اللافندر للشعر</h3>
+                        <div class="order-details">الكمية: 1 | رقم الطلب: #ZB2023110432</div>
+                        <span class="order-status status-shipped">تم الشحن</span>
+                    </div>
+                    <div class="order-price">45 ر.س</div>
+                </div>
+                
+                <div class="order-item">
+                    <div class="order-image">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <div class="order-info">
+                        <h3 class="order-name">مقشر القهوة الطبيعي</h3>
+                        <div class="order-details">الكمية: 1 | رقم الطلب: #ZB2023110387</div>
+                        <span class="order-status status-delivered">تم التوصيل</span>
+                    </div>
+                    <div class="order-price">35 ر.س</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="submit-btn">عرض جميع الطلبات</button>
+                </div>
+            </div>
+            
+            <!-- اللغة -->
+            <div id="language-content" class="tab-content">
+                <h2 class="tab-title">إعدادات اللغة</h2>
+                
+                <div class="form-group">
+                    <label for="siteLanguage" class="form-label">لغة الموقع</label>
+                    <select id="siteLanguage" class="form-select">
+                        <option selected>العربية</option>
+                        <option>English</option>
+                        <option>Français</option>
+                        <option>Español</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="currency" class="form-label">العملة</label>
+                    <select id="currency" class="form-select">
+                        <option selected>ريال سعودي (ر.س)</option>
+                        <option>دولار أمريكي ($)</option>
+                        <option>يورو (€)</option>
+                        <option>درهم إماراتي (د.إ)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timezone" class="form-label">المنطقة الزمنية</label>
+                    <select id="timezone" class="form-select">
+                        <option selected>(GMT+03:00) الرياض</option>
+                        <option>(GMT+04:00) دبي</option>
+                        <option>(GMT+02:00) القاهرة</option>
+                        <option>(GMT+00:00) لندن</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dateFormat" class="form-label">تنسيق التاريخ</label>
+                    <select id="dateFormat" class="form-select">
+                        <option selected>يوم/شهر/سنة (DD/MM/YYYY)</option>
+                        <option>شهر/يوم/سنة (MM/DD/YYYY)</option>
+                        <option>سنة/شهر/يوم (YYYY/MM/DD)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">حفظ التغييرات</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="contact">
+        <i class="cosmetic-icon icon-1 fas fa-paint-brush"></i>
+        <i class="cosmetic-icon icon-2 fas fa-spa"></i>
+        <i class="cosmetic-icon icon-3 fas fa-palette"></i>
+        
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Zubaida Beauty</h3>
+                <p>متخصصون في صناعة منتجات التجميل الطبيعية للشعر والبشرة والصابون الطبيعي بجودة فائقة.</p>
+                <div class="footer-social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-snapchat"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="products.html">المنتجات</a></li>
+                    <li><a href="about.html">عن الشركة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>معلومات الاتصال</h3>
+                <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                <p><i class="fas fa-phone"></i> +966 12 345 6789</p>
+                <p><i class="fas fa-envelope"></i> info@zubaida-beauty.com</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Zubaida Beauty. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تبديل علامات التبويب
+            const tabLinks = document.querySelectorAll('.settings-menu a[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.id !== 'logout') {
+                        e.preventDefault();
+                        
+                        // إزالة النشط من جميع الأزرار
+                        tabLinks.forEach(l => l.classList.remove('active'));
+                        // إضافة النشط للزر المختار
+                        this.classList.add('active');
+                        
+                        const tabId = this.getAttribute('data-tab');
+                        
+                        // إخفاء جميع المحتويات
+                        tabContents.forEach(content => content.classList.remove('active'));
+                        // إظهار المحتوى المختار
+                        document.getElementById(`${tabId}-content`).classList.add('active');
+                    }
+                });
+            });
+            
+            // تسجيل الخروج
+            document.getElementById('logout').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                    alert('تم تسجيل الخروج بنجاح');
+                    window.location.href = 'index.html';
+                }
+            });
+            
+            // تغيير الصورة الشخصية
+            document.querySelector('.change-photo').addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            document.querySelector('.profile-image').innerHTML = `
+                                <img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="change-photo">تغيير</div>
+                            `;
+                            // إعادة إرفاق事件 الاستماع للصورة الجديدة
+                            document.querySelector('.change-photo').addEventListener('click', arguments.callee);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+            
+            // تفعيل خيارات السمة
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // تأثير التصغير عند التمرير
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.padding = '0.5rem 1rem';
+                } else {
+                    header.style.padding = '1rem';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
